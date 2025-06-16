@@ -4,12 +4,18 @@ import { Pokemon } from '../../models/pokemon.model';
 import { NavController } from '@ionic/angular';
 import { FavoritesService } from '../../services/favorites.service';
 import { Subscription } from 'rxjs';
+import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-card.component';
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'app-home',
   templateUrl: './home.page.html',
+  imports: [PokemonCardComponent, IonicModule, CommonModule, FormsModule],
 })
+
 export class HomePage implements OnInit, OnDestroy {
   pokemons: Pokemon[] = [];
   isLoading = true;

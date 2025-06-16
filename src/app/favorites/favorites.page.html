@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Favoritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="!isLoading; else loading">
+    <ng-container *ngIf="favorites.length > 0; else noFavorites">
+      <app-pokemon-card
+        *ngFor="let pokemon of favorites"
+        [pokemon]="pokemon"
+        [isFavorite]="true"
+        (toggleFavorite)="toggleFavorite($event)"
+        (openDetails)="openDetails($event)"
+      >
+      </app-pokemon-card>
+    </ng-container>
+
+    <ng-template #noFavorites>
+      <ion-text class="ion-padding">Nenhum Pokémon favoritado.</ion-text>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #loading>
+    <ion-spinner class="ion-padding"></ion-spinner>
+  </ng-template>
+</ion-content>

@@ -13,7 +13,6 @@ export class PokemonService {
   constructor(private http: HttpClient) {}
 
   private extractIdFromUrl(url: string): number {
-    // Extrai o id da url, por exemplo: https://pokeapi.co/api/v2/pokemon/25/ -> 25
     const parts = url.split('/');
     return +parts[parts.length - 2];
   }
@@ -34,7 +33,13 @@ export class PokemonService {
     );
   }
 
-  getPokemonDetails(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}`);
-  }
+getPokemonDetails(id: number): Observable<Pokemon> {
+  return this.http.get<any>(`${this.baseUrl}/${id}`).pipe(
+    map(data => {
+      const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
+      return new Pokemon(data.name, `${this.baseUrl}/${data.id}`, data.id, imageUrl);
+    })
+  );
+}
+
 }

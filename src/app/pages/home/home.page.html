@@ -1,18 +1,9 @@
 <ion-content>
   <ng-container *ngIf="!isLoading; else loading">
     <ion-list>
-      <ion-item *ngFor="let pokemon of pokemons" (click)="openDetails(pokemon)">
-        <ion-thumbnail slot="start">
-          <img [src]="pokemon.imageUrl" [alt]="pokemon.name" />
-        </ion-thumbnail>
-        <ion-label>
-          {{ pokemon.name | titlecase }}
-          <p>ID: {{ pokemon.id }}</p>
-        </ion-label>
-        <ion-button fill="clear" slot="end" (click)="toggleFavorite(pokemon); $event.stopPropagation()">
-          <ion-icon [name]="isFavorite(pokemon) ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
-        </ion-button>
-      </ion-item>
+      <app-pokemon-card *ngFor="let pokemon of pokemons" [pokemon]="pokemon" [isFavorite]="isFavorite(pokemon)"
+        (toggleFavorite)="toggleFavorite($event)" (openDetails)="openDetails($event)">
+      </app-pokemon-card>
     </ion-list>
 
     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadPokemons($event)" [disabled]="!canLoadMore()">
