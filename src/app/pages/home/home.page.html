@@ -1,13 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title>Pokémon List</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content *ngIf="!isLoading; else loading">
+  <ion-list>
+    <ion-item *ngFor="let pokemon of pokemons">
+      <ion-thumbnail slot="start">
+        <img [src]="pokemon.getImageUrl()" [alt]="pokemon.name" />
+      </ion-thumbnail>
+      <ion-label>
+        {{ pokemon.name | titlecase }}
+        <p>ID: {{ pokemon.getId() }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ng-template #loading>
+  <ion-spinner name="crescent"></ion-spinner>
+</ng-template>
