@@ -9,18 +9,15 @@
           {{ pokemon.name | titlecase }}
           <p>ID: {{ pokemon.getId() }}</p>
         </ion-label>
+        <ion-button fill="clear" slot="end" (click)="toggleFavorite(pokemon); $event.stopPropagation()">
+          <ion-icon [name]="isFavorite(pokemon) ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-list>
 
-    <ion-infinite-scroll
-      threshold="100px"
-      (ionInfinite)="loadPokemons($event)"
-      [disabled]="!canLoadMore()"
-    >
-      <ion-infinite-scroll-content
-        loadingSpinner="dots"
-        loadingText="Carregando mais Pokémon..."
-      ></ion-infinite-scroll-content>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadPokemons($event)" [disabled]="!canLoadMore()">
+      <ion-infinite-scroll-content loadingSpinner="dots"
+        loadingText="Carregando mais Pokémon..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ng-container>
 

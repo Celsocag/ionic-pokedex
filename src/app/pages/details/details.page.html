@@ -11,13 +11,13 @@
   <div class="pokemon-details">
     <img
       [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + pokemon?.id + '.png'"
-      [alt]="pokemon?.name"
-      class="pokemon-image"
-    />
+      [alt]="pokemon?.name" class="pokemon-image" />
 
     <div class="info-card">
       <h2>#{{ pokemon?.id }} {{ pokemon?.name | titlecase }}</h2>
-
+      <ion-button fill="clear" slot="end" (click)="toggleFavorite(pokemon); $event.stopPropagation()">
+        <ion-icon [name]="isFavorite(pokemon) ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
+      </ion-button>
       <div class="info-section">
         <h3>Types</h3>
         <ion-chip color="primary" *ngFor="let t of pokemon.types">

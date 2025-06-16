@@ -1,30 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../models/pokemon.model';
 import { NavController } from '@ionic/angular';
+import { FavoritesService } from '../../services/favorites.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: false,
   selector: 'app-home',
   templateUrl: './home.page.html',
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
   pokemons: Pokemon[] = [];
   isLoading = true;
   searchTerm: string = '';
-
   offset = 0;
   limit = 20;
   total = 0;
 
-  constructor(private pokemonService: PokemonService, private navCtrl: NavController) { }
+  favoriteIds: number[] = [];
+  private favoritesSub?: Subscription;
+
+  constructor(
+    private pokemonService: PokemonService,
+    private navCtrl: NavController,
+    private favoritesService: FavoritesService
+  ) {}
 
   ngOnInit() {
     this.loadPokemons();
+
+    this.favoritesSub = this.favoritesService.favorites$.subscribe(ids => {
+      this.favoriteIds = ids;
+    });
+  }
+
+  ngOnDestroy() {
+    this.favoritesSub?.unsubscribe();
   }
 
   loadPokemons(event?: any) {
-    if (!event) { // primeira carga
+    if (!event) {
       this.isLoading = true;
     }
 
@@ -33,6 +49,7 @@ export class HomePage implements OnInit {
         this.pokemons = [...this.pokemons, ...pokemons];
         this.total = total;
         this.offset += this.limit;
+
         if (!event) {
           this.isLoading = false;
         }
@@ -59,5 +76,13 @@ export class HomePage implements OnInit {
   openDetails(pokemon: Pokemon) {
     const id = pokemon.getId();
     this.navCtrl.navigateForward(`/details/${id}`);
+  }
+
+  async toggleFavorite(pokemon: Pokemon) {
+    await this.favoritesService.toggleFavorite(+pokemon.getId());
+  }
+
+  isFavorite(pokemon: Pokemon): boolean {
+    return this.favoriteIds.includes(+pokemon.getId());
   }
 }
