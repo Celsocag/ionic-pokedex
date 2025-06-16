@@ -4,51 +4,56 @@ import { Pokemon } from '../../models/pokemon.model';
 import { NavController } from '@ionic/angular';
 
 @Component({
-  standalone:false,
+  standalone: false,
   selector: 'app-home',
   templateUrl: './home.page.html',
-
 })
 export class HomePage implements OnInit {
- pokemons: Pokemon[] = [];
-  filteredPokemons: Pokemon[] = [];
+  pokemons: Pokemon[] = [];
   isLoading = true;
   searchTerm: string = '';
 
-  constructor(private pokemonService: PokemonService, private navCtrl: NavController) {}
+  offset = 0;
+  limit = 20;
+  total = 0;
+
+  constructor(private pokemonService: PokemonService, private navCtrl: NavController) { }
 
   ngOnInit() {
     this.loadPokemons();
   }
 
-  loadPokemons() {
-    this.isLoading = true;
-    this.pokemonService.getPokemons().subscribe({
-      next: (pokemons) => {
-        this.pokemons = pokemons;
-        this.filteredPokemons = pokemons;
-        this.isLoading = false;
+  loadPokemons(event?: any) {
+    if (!event) { // primeira carga
+      this.isLoading = true;
+    }
+
+    this.pokemonService.getPokemons(this.limit, this.offset).subscribe({
+      next: ({ pokemons, total }) => {
+        this.pokemons = [...this.pokemons, ...pokemons];
+        this.total = total;
+        this.offset += this.limit;
+        if (!event) {
+          this.isLoading = false;
+        }
+        if (event) {
+          event.target.complete();
+        }
       },
       error: (err) => {
         console.error('Erro ao carregar Pokémon', err);
-        this.isLoading = false;
+        if (!event) {
+          this.isLoading = false;
+        }
+        if (event) {
+          event.target.complete();
+        }
       },
     });
   }
 
-  filterPokemons() {
-    const term = this.searchTerm.trim().toLowerCase();
-    if (!term) {
-      this.filteredPokemons = this.pokemons;
-    } else {
-      this.filteredPokemons = this.pokemons.filter(p =>
-        p.name.toLowerCase().includes(term)
-      );
-    }
+  canLoadMore(): boolean {
+    return this.offset < this.total;
   }
 
-  openDetails(pokemon: Pokemon) {
-    // Exemplo: navegar para página de detalhes (se existir)
-    this.navCtrl.navigateForward(`/details/${pokemon.getId()}`);
-  }
 }

@@ -1,23 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Pokémon List</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ng-container *ngIf="!isLoading; else loading">
+    <ion-list>
+      <ion-item *ngFor="let pokemon of pokemons">
+        <ion-thumbnail slot="start">
+          <img [src]="pokemon.getImageUrl()" [alt]="pokemon.name" />
+        </ion-thumbnail>
+        <ion-label>
+          {{ pokemon.name | titlecase }}
+          <p>ID: {{ pokemon.getId() }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
 
-<ion-content *ngIf="!isLoading; else loading">
-  <ion-list>
-    <ion-item *ngFor="let pokemon of pokemons">
-      <ion-thumbnail slot="start">
-        <img [src]="pokemon.getImageUrl()" [alt]="pokemon.name" />
-      </ion-thumbnail>
-      <ion-label>
-        {{ pokemon.name | titlecase }}
-        <p>ID: {{ pokemon.getId() }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+    <ion-infinite-scroll
+      threshold="100px"
+      (ionInfinite)="loadPokemons($event)"
+      [disabled]="!canLoadMore()"
+    >
+      <ion-infinite-scroll-content
+        loadingSpinner="dots"
+        loadingText="Carregando mais Pokémon..."
+      ></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+
+  <ng-template #loading>
+    <ion-spinner name="crescent" class="ion-padding"></ion-spinner>
+  </ng-template>
 </ion-content>
-
-<ng-template #loading>
-  <ion-spinner name="crescent"></ion-spinner>
-</ng-template>
