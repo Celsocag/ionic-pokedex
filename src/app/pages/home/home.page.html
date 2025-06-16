@@ -3,11 +3,11 @@
     <ion-list>
       <ion-item *ngFor="let pokemon of pokemons" (click)="openDetails(pokemon)">
         <ion-thumbnail slot="start">
-          <img [src]="pokemon.getImageUrl()" [alt]="pokemon.name" />
+          <img [src]="pokemon.imageUrl" [alt]="pokemon.name" />
         </ion-thumbnail>
         <ion-label>
           {{ pokemon.name | titlecase }}
-          <p>ID: {{ pokemon.getId() }}</p>
+          <p>ID: {{ pokemon.id }}</p>
         </ion-label>
         <ion-button fill="clear" slot="end" (click)="toggleFavorite(pokemon); $event.stopPropagation()">
           <ion-icon [name]="isFavorite(pokemon) ? 'heart' : 'heart-outline'" color="danger"></ion-icon>

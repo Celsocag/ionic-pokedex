@@ -74,15 +74,15 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   openDetails(pokemon: Pokemon) {
-    const id = pokemon.getId();
+    const id = pokemon.id;
     this.navCtrl.navigateForward(`/details/${id}`);
   }
 
   async toggleFavorite(pokemon: Pokemon) {
-    await this.favoritesService.toggleFavorite(+pokemon.getId());
+    await this.favoritesService.toggleFavorite(+pokemon.id);
   }
 
   isFavorite(pokemon: Pokemon): boolean {
-    return this.favoriteIds.includes(+pokemon.getId());
+    return this.favoriteIds.includes(+pokemon.id);
   }
 }
