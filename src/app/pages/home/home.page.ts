@@ -56,4 +56,8 @@ export class HomePage implements OnInit {
     return this.offset < this.total;
   }
 
+  openDetails(pokemon: Pokemon) {
+    const id = pokemon.getId();
+    this.navCtrl.navigateForward(`/details/${id}`);
+  }
 }

@@ -1,7 +1,7 @@
 <ion-content>
   <ng-container *ngIf="!isLoading; else loading">
     <ion-list>
-      <ion-item *ngFor="let pokemon of pokemons">
+      <ion-item *ngFor="let pokemon of pokemons" (click)="openDetails(pokemon)">
         <ion-thumbnail slot="start">
           <img [src]="pokemon.getImageUrl()" [alt]="pokemon.name" />
         </ion-thumbnail>

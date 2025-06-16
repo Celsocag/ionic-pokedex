@@ -10,7 +10,7 @@ import { Pokemon } from '../models/pokemon.model';
 export class PokemonService {
   private baseUrl = 'https://pokeapi.co/api/v2/pokemon';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getPokemons(limit = 20, offset = 0): Observable<{ pokemons: Pokemon[]; total: number }> {
     return this.http.get<any>(`${this.baseUrl}?limit=${limit}&offset=${offset}`).pipe(
@@ -23,4 +23,7 @@ export class PokemonService {
       })
     );
   }
+getPokemonDetails(id: number): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/${id}`);
+}
 }
