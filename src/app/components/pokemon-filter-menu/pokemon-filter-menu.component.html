@@ -1,0 +1,11 @@
+<ion-list>
+  <ion-list-header>Filtrar por Tipo</ion-list-header>
+  <ion-item *ngFor="let tipo of tipos">
+    <ion-label>{{ tipo | titlecase }}</ion-label>
+    <ion-checkbox
+      slot="start"
+      [checked]="selectedType === tipo"
+      (ionChange)="onTypeSelected($event, tipo)">
+    </ion-checkbox>
+  </ion-item>
+</ion-list>

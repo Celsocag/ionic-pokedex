@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PokemonBuscaComponent } from "./components/pokemon-busca/pokemon-busca.component";
+import { PokemonFilterComponent } from './components/pokemon-filter/pokemon-filter.component';
 
 @NgModule({
   declarations: [AppComponent,HeaderComponent,FooterComponent],
-  imports: [BrowserModule, HttpClientModule,  IonicStorageModule.forRoot(),
-  IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, HttpClientModule, PokemonFilterComponent, IonicStorageModule.forRoot(),
+    IonicModule.forRoot(), AppRoutingModule, PokemonBuscaComponent],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  width: 250px;
+  height: 100vh;
+  background-color: rgb(18, 18, 18) !important;
+  color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1000 !important;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+ion-list {
+  margin: 0;
+  padding: 0;
+}
+
+ion-item {
+  --background: transparent;
+  cursor: pointer;
+}
+
+ion-item[aria-selected="true"] {
+  --background: var(--ion-color-primary-tint);
+  font-weight: bold;
+}
+
+ion-item:hover {
+  --background: var(--ion-color-primary-shade);
+}

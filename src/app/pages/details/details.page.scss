@@ -1,27 +1,59 @@
+/* src/app/pages/details/details.page.scss */
+
 .pokemon-details {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 16px;
 }
 
-.pokemon-image {
-  width: 200px;
-  height: auto;
-  margin-bottom: 1rem;
+.pokemon-images-swiper {
+  width: 100%;
+  height: 250px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 500px;
+}
+
+.swiper-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+  padding: 10px;
+}
+
+.slide-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  background-color: var(--ion-color-light);
+  color: var(--ion-color-medium);
 }
 
 .info-card {
   width: 100%;
   max-width: 500px;
-  background: #f4f4f4;
+  background: var(--ion-background-color);
   padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
 .info-section {
   margin-top: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ion-color-light-shade);
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 ion-chip {
@@ -38,4 +70,15 @@ ion-progress-bar {
   height: 8px;
   border-radius: 4px;
   margin-top: 6px;
+  max-width: 60%;
+}
+
+swiper-container {
+  width: 50% !important; /* Mantenha essa linha se você REALMENTE quer 50% de largura, caso contrário, remova. */
+  --swiper-pagination-color: var(--ion-color-primary);
+  --swiper-pagination-bullet-inactive-color: var(--ion-color-medium);
+  --swiper-pagination-bullet-inactive-opacity: 0.8;
+  --swiper-navigation-color: var(--ion-color-primary);
+  --swiper-navigation-size: 30px;
+  --swiper-pagination-bottom: 0;
 }

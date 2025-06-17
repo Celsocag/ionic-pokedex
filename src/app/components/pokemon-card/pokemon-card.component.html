@@ -1,12 +1,12 @@
-<ion-item (click)="onOpenDetails()">
-  <ion-thumbnail slot="start">
-    <img [src]="pokemon.imageUrl" [alt]="pokemon.name" />
-  </ion-thumbnail>
-  <ion-label>
+<ion-card (click)="openDetails.emit(pokemon)" class="pokemon-card">
+  <ion-img [src]="pokemon.imageUrl" alt="{{ pokemon.name }}"></ion-img>
+  <ion-card-content>
     <h2>{{ pokemon.name | titlecase }}</h2>
-    <p>ID: {{ pokemon.id }}</p>
-  </ion-label>
-  <ion-button fill="clear" slot="end" (click)="onToggleFavorite($event)">
-    <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
-  </ion-button>
-</ion-item>
+
+    <ion-icon
+      [name]="isFavorite ? 'heart' : 'heart-outline'"
+      class="favorite-icon"
+      (click)="toggleFavorite.emit(pokemon); $event.stopPropagation()">
+    </ion-icon>
+  </ion-card-content>
+</ion-card>

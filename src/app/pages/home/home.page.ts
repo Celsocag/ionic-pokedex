@@ -8,32 +8,56 @@ import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-ca
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PokemonFilterComponent } from 'src/app/components/pokemon-filter/pokemon-filter.component';
+import { PokemonFilterMenuComponent } from 'src/app/components/pokemon-filter-menu/pokemon-filter-menu.component';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
   standalone: true,
   selector: 'app-home',
   templateUrl: './home.page.html',
-  imports: [PokemonCardComponent, IonicModule, CommonModule, FormsModule],
+  styleUrls: ['./home.page.scss'],
+  imports: [
+    PokemonCardComponent,
+    PokemonFilterComponent,
+    PokemonFilterMenuComponent,
+    IonicModule,
+    CommonModule,
+    FormsModule,
+  ],
 })
-
 export class HomePage implements OnInit, OnDestroy {
   pokemons: Pokemon[] = [];
   isLoading = true;
-  searchTerm: string = '';
+  isFetching = false;
   offset = 0;
   limit = 20;
   total = 0;
-
+  errorMessage = '';
   favoriteIds: number[] = [];
   private favoritesSub?: Subscription;
+  private filterSub?: Subscription;
+  private currentFilter: string | null = null;
 
   constructor(
     private pokemonService: PokemonService,
     private navCtrl: NavController,
-    private favoritesService: FavoritesService
+    private favoritesService: FavoritesService,
+    private filterService: FilterService
   ) {}
 
   ngOnInit() {
+    // Escuta filtro global
+    this.filterSub = this.filterService.filter$.subscribe(filter => {
+      if (this.currentFilter !== filter) {
+        this.currentFilter = filter;
+        this.offset = 0;
+        this.pokemons = [];
+        this.errorMessage = '';
+        this.loadPokemons();
+      }
+    });
+
     this.loadPokemons();
 
     this.favoritesSub = this.favoritesService.favorites$.subscribe(ids => {
@@ -43,36 +67,46 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.favoritesSub?.unsubscribe();
+    this.filterSub?.unsubscribe();
   }
 
   loadPokemons(event?: any) {
-    if (!event) {
-      this.isLoading = true;
-    }
+    if (this.isFetching) return;
 
-    this.pokemonService.getPokemons(this.limit, this.offset).subscribe({
-      next: ({ pokemons, total }) => {
-        this.pokemons = [...this.pokemons, ...pokemons];
-        this.total = total;
-        this.offset += this.limit;
+    this.isFetching = true;
+    if (!event) this.isLoading = true;
+    this.errorMessage = '';
 
-        if (!event) {
+    this.pokemonService
+      .getPokemons(this.limit, this.offset, '') // Aqui passa '' pois filtro está no serviço
+      .subscribe({
+        next: ({ pokemons, total }) => {
+          if (this.offset === 0) {
+            this.pokemons = pokemons;
+          } else {
+            this.pokemons = [...this.pokemons, ...pokemons];
+          }
+          this.total = total;
+          this.offset += this.limit;
           this.isLoading = false;
-        }
-        if (event) {
-          event.target.complete();
-        }
-      },
-      error: (err) => {
-        console.error('Erro ao carregar Pokémon', err);
-        if (!event) {
+          this.isFetching = false;
+          if (event) event.target.complete();
+        },
+        error: () => {
+          this.errorMessage =
+            'Não foi possível carregar os Pokémon. Verifique sua conexão e tente novamente.';
           this.isLoading = false;
-        }
-        if (event) {
-          event.target.complete();
-        }
-      },
-    });
+          this.isFetching = false;
+          if (event) event.target.complete();
+        },
+      });
+  }
+
+  retry() {
+    this.offset = 0;
+    this.pokemons = [];
+    this.errorMessage = '';
+    this.loadPokemons();
   }
 
   canLoadMore(): boolean {
@@ -80,8 +114,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   openDetails(pokemon: Pokemon) {
-    const id = pokemon.id;
-    this.navCtrl.navigateForward(`/details/${id}`);
+    this.navCtrl.navigateForward(`/details/${pokemon.id}`);
   }
 
   async toggleFavorite(pokemon: Pokemon) {
@@ -90,5 +123,9 @@ export class HomePage implements OnInit, OnDestroy {
 
   isFavorite(pokemon: Pokemon): boolean {
     return this.favoriteIds.includes(+pokemon.id);
+  }
+
+  applyFilter(filter: string | null) {
+    this.filterService.setFilter(filter);
   }
 }

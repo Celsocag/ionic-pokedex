@@ -1,0 +1,25 @@
+/* Estilos para o searchbar dentro do componente */
+
+ion-searchbar {
+  --background: #f0f0f5; /* cor clara de fundo */
+  --border-radius: 12px;
+  --padding-start: 10px;
+  --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Ajuste do placeholder */
+ion-searchbar .searchbar-input {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Cor do placeholder */
+ion-searchbar::part(input) {
+  color: #888;
+}
+
+/* Espaçamento do componente */
+:host {
+  display: block;
+  padding: 8px 16px;
+}

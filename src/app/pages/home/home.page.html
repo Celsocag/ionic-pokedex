@@ -1,23 +1,48 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ng-container *ngIf="!isLoading; else loading">
-    <ion-list>
-      <app-pokemon-card *ngFor="let pokemon of pokemons" [pokemon]="pokemon" [isFavorite]="isFavorite(pokemon)"
-        (toggleFavorite)="toggleFavorite($event)" (openDetails)="openDetails($event)">
-      </app-pokemon-card>
-    </ion-list>
+<ion-split-pane contentId="main-content" when="md">
+  <ion-menu contentId="main-content" side="start" type="overlay">
+    <app-pokemon-filter-menu (filterChanged)="applyFilter($event)"></app-pokemon-filter-menu>
+  </ion-menu>
 
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadPokemons($event)" [disabled]="!canLoadMore()">
-      <ion-infinite-scroll-content loadingSpinner="dots"
-        loadingText="Carregando mais Pokémon..."></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </ng-container>
+  <ion-content id="main-content">
+    <ng-container *ngIf="!isLoading; else loading">
+      <app-pokemon-filter (filterChanged)="applyFilter($event)"></app-pokemon-filter>
 
-  <ng-template #loading>
-    <ion-spinner name="crescent" class="ion-padding"></ion-spinner>
-  </ng-template>
-</ion-content>
+      <div class="grid-container">
+        <app-pokemon-card
+          *ngFor="let pokemon of pokemons"
+          [pokemon]="pokemon"
+          [isFavorite]="isFavorite(pokemon)"
+          (toggleFavorite)="toggleFavorite($event)"
+          (openDetails)="openDetails($event)"
+        ></app-pokemon-card>
+      </div>
+
+      <ng-template [ngIf]="errorMessage && !isLoading">
+        <div class="error-message">
+          <ion-icon name="alert-circle-outline" size="large" color="danger"></ion-icon>
+          <p>{{ errorMessage }}</p>
+          <ion-button expand="block" (click)="retry()">Tentar novamente</ion-button>
+        </div>
+      </ng-template>
+
+      <ion-infinite-scroll
+        threshold="100px"
+        (ionInfinite)="loadPokemons($event)"
+        [disabled]="!canLoadMore()"
+      >
+        <ion-infinite-scroll-content
+          loadingSpinner="dots"
+          loadingText="Carregando mais Pokémon..."
+        >
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="loading-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Carregando Pokémons...</p>
+      </div>
+    </ng-template>
+  </ion-content>
+</ion-split-pane>

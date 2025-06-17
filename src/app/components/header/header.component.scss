@@ -1,0 +1,23 @@
+.dropdown-menu {
+  position: absolute;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  min-width: 140px;
+  z-index: 10000; /* muito alto pra ficar sobre tudo */
+  overflow: hidden;
+}
+
+/* Itens do menu */
+.dropdown-menu ion-item {
+  --background: transparent;
+  --ion-item-background-hover: #ffe5e5;
+  --ion-item-background-focused: #ffcccc;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Ícone vermelho no item */
+.dropdown-menu ion-icon {
+  color: #ff3b3f;
+}
