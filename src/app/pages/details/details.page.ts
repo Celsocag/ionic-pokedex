@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PokemonService } from '../../services/pokemon.service';
-import { FavoritesService } from '../../services/favorites.service';
+import { PokemonService } from '../../../services/pokemon.service';
+import { FavoritesService } from '../../../services/favorites.service';
 import { Subscription } from 'rxjs';
 
 @Component({

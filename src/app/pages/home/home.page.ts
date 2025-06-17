@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PokemonService } from '../../services/pokemon.service';
-import { Pokemon } from '../../models/pokemon.model';
+import { PokemonService } from '../../../services/pokemon.service';
+import { Pokemon } from '../../../models/pokemon.model';
 import { NavController } from '@ionic/angular';
-import { FavoritesService } from '../../services/favorites.service';
+import { FavoritesService } from '../../../services/favorites.service';
 import { Subscription } from 'rxjs';
 import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-card.component';
 import { IonicModule } from '@ionic/angular';

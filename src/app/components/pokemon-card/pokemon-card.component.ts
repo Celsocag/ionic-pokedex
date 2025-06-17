@@ -1,5 +1,5 @@
 import { Component, NgModule, Input, Output, EventEmitter } from '@angular/core';
-import { Pokemon } from '../../models/pokemon.model';
+import { Pokemon } from '../../../models/pokemon.model';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 @Component({
