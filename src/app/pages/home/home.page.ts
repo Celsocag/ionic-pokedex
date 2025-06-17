@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { PokemonService } from '../../../services/pokemon.service';
 import { Pokemon } from '../../../models/pokemon.model';
 import { NavController } from '@ionic/angular';
@@ -8,7 +8,6 @@ import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-ca
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PokemonFilterComponent } from 'src/app/components/pokemon-filter/pokemon-filter.component';
 import { PokemonFilterMenuComponent } from 'src/app/components/pokemon-filter-menu/pokemon-filter-menu.component';
 import { FilterService } from '../../../services/filter.service';
 
@@ -19,12 +18,12 @@ import { FilterService } from '../../../services/filter.service';
   styleUrls: ['./home.page.scss'],
   imports: [
     PokemonCardComponent,
-    PokemonFilterComponent,
     PokemonFilterMenuComponent,
     IonicModule,
     CommonModule,
     FormsModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomePage implements OnInit, OnDestroy {
   pokemons: Pokemon[] = [];
@@ -39,6 +38,8 @@ export class HomePage implements OnInit, OnDestroy {
   private filterSub?: Subscription;
   private currentFilter: string | null = null;
 
+  showRotateBanner = false;
+
   constructor(
     private pokemonService: PokemonService,
     private navCtrl: NavController,
@@ -47,6 +48,11 @@ export class HomePage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.checkOrientation();
+
+    // Escuta mudança na orientação da janela
+    window.addEventListener('resize', () => this.checkOrientation());
+
     // Escuta filtro global
     this.filterSub = this.filterService.filter$.subscribe(filter => {
       if (this.currentFilter !== filter) {
@@ -68,6 +74,11 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.favoritesSub?.unsubscribe();
     this.filterSub?.unsubscribe();
+    window.removeEventListener('resize', () => this.checkOrientation());
+  }
+
+  private checkOrientation() {
+    this.showRotateBanner = window.matchMedia('(orientation: portrait)').matches;
   }
 
   loadPokemons(event?: any) {
@@ -78,7 +89,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.errorMessage = '';
 
     this.pokemonService
-      .getPokemons(this.limit, this.offset, '') // Aqui passa '' pois filtro está no serviço
+      .getPokemons(this.limit, this.offset, '') // filtro no serviço
       .subscribe({
         next: ({ pokemons, total }) => {
           if (this.offset === 0) {

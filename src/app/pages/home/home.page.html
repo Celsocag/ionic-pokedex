@@ -1,11 +1,17 @@
-<ion-split-pane contentId="main-content" when="md">
+
+
+<ion-split-pane contentId="main-content" when="sm">
+  <ion-banner *ngIf="showRotateBanner" color="warning" mode="ios">
+  <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+  <ion-label>Por favor, deite o dispositivo para melhor visualização.</ion-label>
+  <ion-button slot="end" fill="clear" (click)="showRotateBanner = false">Fechar</ion-button>
+</ion-banner>
   <ion-menu contentId="main-content" side="start" type="overlay">
     <app-pokemon-filter-menu (filterChanged)="applyFilter($event)"></app-pokemon-filter-menu>
   </ion-menu>
 
   <ion-content id="main-content">
     <ng-container *ngIf="!isLoading; else loading">
-      <app-pokemon-filter (filterChanged)="applyFilter($event)"></app-pokemon-filter>
 
       <div class="grid-container">
         <app-pokemon-card
