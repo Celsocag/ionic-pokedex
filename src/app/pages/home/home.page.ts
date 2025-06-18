@@ -40,10 +40,8 @@ export class HomePage implements OnInit, OnDestroy {
 
   showRotateBanner = false;
 
-  // Flag para controlar se o banner já foi fechado (persistido)
   private readonly STORAGE_KEY_BANNER_SHOWN = 'rotateBannerShown';
 
-  // Definindo a função para poder remover o listener corretamente
   private onResize = () => {
     this.checkOrientation();
   };
@@ -56,15 +54,12 @@ export class HomePage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Chama logo no carregamento da página
     this.checkOrientation();
 
-    // Adiciona o listener para checar sempre que a janela mudar de tamanho
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', this.onResize);
     }
 
-    // Escuta filtro global
     this.filterSub = this.filterService.filter$.subscribe(filter => {
       if (this.currentFilter !== filter) {
         this.currentFilter = filter;
@@ -86,7 +81,6 @@ export class HomePage implements OnInit, OnDestroy {
     this.favoritesSub?.unsubscribe();
     this.filterSub?.unsubscribe();
 
-    // Remove o listener corretamente
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onResize);
     }
@@ -96,11 +90,9 @@ export class HomePage implements OnInit, OnDestroy {
     const isPortrait = window.innerHeight > window.innerWidth;
     const bannerAlreadyShown = localStorage.getItem(this.STORAGE_KEY_BANNER_SHOWN) === 'true';
 
-    // Exibe o banner apenas se estiver em portrait e ainda não foi exibido antes
     this.showRotateBanner = isPortrait && !bannerAlreadyShown;
   }
 
-  // Função para fechar o banner e salvar no localStorage para não mostrar de novo
   closeRotateBanner() {
     this.showRotateBanner = false;
     localStorage.setItem(this.STORAGE_KEY_BANNER_SHOWN, 'true');
@@ -114,7 +106,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.errorMessage = '';
 
     this.pokemonService
-      .getPokemons(this.limit, this.offset, '') // filtro no serviço
+      .getPokemons(this.limit, this.offset, '')
       .subscribe({
         next: ({ pokemons, total }) => {
           if (this.offset === 0) {

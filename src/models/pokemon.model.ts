@@ -7,9 +7,9 @@ export class Pokemon {
     public types: string[] = [],
     public abilities: string[] = [],
     public stats: { name: string; value: number }[] = [],
-    public images: string[] = [], // já existente
-    public description?: string,  // nova descrição (flavor text)
-    public habitat?: string,      // habitat do Pokémon
-    public generation?: string    // geração do Pokémon
+    public images: string[] = [],
+    public description?: string,
+    public habitat?: string,
+    public generation?: string
   ) {}
 }

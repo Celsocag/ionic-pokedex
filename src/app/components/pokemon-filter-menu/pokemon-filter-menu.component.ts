@@ -27,7 +27,6 @@ export class PokemonFilterMenuComponent {
       this.selectedType = tipo;
       this.filterChanged.emit(this.selectedType);
     } else {
-      // Se desmarcou o único selecionado, limpa o filtro
       this.selectedType = null;
       this.filterChanged.emit(null);
     }
