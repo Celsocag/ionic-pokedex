@@ -7,40 +7,61 @@ Uma Pokédex responsiva desenvolvida com Ionic + Angular, consumindo a PokéAPI 
 ## Funcionalidades
 
 - **Listagem de Pokémons** com infinite scroll
-
+</br>
 <div align="center">
   <img src="src/assets/readme/home_mobile.png" width="200" alt="Home Mobile" />
+</div>
+</br>
+<div align="center">
+
   <img src="src/assets/readme/home_desk.png" width="400" alt="Home Desktop" />
 </div>
+</br>
+</br>
 
 - **Filtro por tipo** de Pokémon
-
+</br>
 <div align="center">
   <img src="src/assets/readme/filtro_desk_demo.gif" width="600" alt="Filtro por Tipo" />
 </div>
+</br>
+</br>
 
 - **Favoritos salvos localmente**
-
+  
+</br>
 <div align="center">
   <img src="src/assets/readme/favoritos_mobile.png" width="200" alt="Favoritos Mobile" />
+</div>
+</br>
+  
+<div align="center">
   <img src="src/assets/readme/favoritos_desk.png" width="400" alt="Favoritos Desktop" />
 </div>
+</br>
+</br>
 
+- **Detalhes completos** de cada Pokémon (imagens, tipos, habilidades, descrição, habitat e geração)
+  </br>
 <div align="center">
   <img src="src/assets/readme/favoritos_mobile_demo.gif.gif" width="300" alt="Favoritos Demo Mobile" />
 </div>
-
-- **Detalhes completos** de cada Pokémon (imagens, tipos, habilidades, descrição, habitat e geração)
+</br>
+</br>
 
 <div align="center">
   <img src="src/assets/readme/detalhes_desktop.gif" width="600" alt="Detalhes Pokémon" />
 </div>
 
-- **Responsivo** para mobile e desktop  
-- **Acessibilidade:** alt em imagens, aria-label, contraste, navegação por teclado  
-- **Performance:** lazy loading de imagens, trackBy em listas principais, preconnect para APIs  
+- **Responsivo** para mobile e desktop
+  </br>
+- **Acessibilidade:** alt em imagens, aria-label, contraste, navegação por teclado
+  </br>
+- **Performance:** lazy loading de imagens, trackBy em listas principais, preconnect para APIs
+  </br>
 - **UX Mobile:** alerta visual para rotação de tela
-
+</br>
+</br>
 <div align="center">
   <img src="src/assets/readme/mobile_rotate_warning.gif" width="300" alt="Alerta de Rotação" />
 </div>
@@ -82,10 +103,14 @@ Uma Pokédex responsiva desenvolvida com Ionic + Angular, consumindo a PokéAPI 
 
 ##  Como rodar
 
+Para iniciar o projeto em modo desenvolvimento:
+
 ```sh
-ionic serve
+npm start
 ```
-Acesse [http://localhost:8100](http://localhost:8100) no navegador.
+
+Acesse [http://localhost:4200](http://localhost:4200) no navegador.
+
 
 ---
 
@@ -119,12 +144,25 @@ src/
 
 ---
 
+
+### Scripts Disponíveis
+
+- `npm start` — Inicia o servidor de desenvolvimento (ng serve)
+- `npm run build` — Gera o build de produção do projeto
+- `npm run watch` — Gera o build em modo watch (atualização automática)
+- `npm test` — Executa os testes unitários com Karma e Jasmine
+- `npm run lint` — Executa o linter para checagem de padrões e qualidade de código
+
+
+---
+
+
 ##  Decisões Técnicas
 
 
 ### Metodologias e Boas Práticas de Código
 
-- **DRY:** Lógica reutilizável centralizada em services, sem duplicação visível.
+- **DRY:** Lógica reutilizável centralizada em services, sem duplicação.
 
 - **KISS:** Código simples, direto e fácil de entender.
 
@@ -134,8 +172,7 @@ src/
 
 - **Convenções Angular:** Nomenclatura e estrutura de arquivos seguem o padrão Angular.
 
-- **trackBy:** Utilizado em todas as listas relevantes para performance.
-
+  </br>
 
 
 ### Performance e Acessibilidade
@@ -146,11 +183,23 @@ src/
 
 - **Lazy Loading de Imagens:** Imagens carregadas sob demanda.
 
+- **trackBy:** Utilizado em todas as listas relevantes para performance.
+
 - **Preconnect:** Otimização de requisições à PokéAPI.
 
 - **Acessibilidade:** Uso de alt, aria-label, contraste e navegação por teclado.
 
+  </br>
+  
+### Testes Unitários
 
+- **Ferramentas:** Utiliza Jasmine e Karma para testes unitários automatizados.
+  
+- **Cobertura:** Testes focados em componentes principais (páginas, renderização, interações, eventos) e integração destes com os serviços (ex: manipulação de favoritos, navegação, cenários de erro e sucesso).
+  
+- **Abordagem:** Testes isolados de componentes, com mocks para dependências externas e simulação de cenários de erro e sucesso.
+
+  </br>
 
 ---
 
