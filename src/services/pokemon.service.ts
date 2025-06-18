@@ -4,6 +4,10 @@ import { map, Observable, of, forkJoin } from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
 import { FilterService } from './filter.service';
 
+/**
+ * Serviço responsável por buscar, filtrar e cachear dados dos Pokémons usando a PokéAPI.
+ * Também fornece métodos para buscar detalhes e espécies de um Pokémon.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -43,6 +47,13 @@ export class PokemonService {
     );
   }
 
+  /**
+   * Busca uma lista paginada de Pokémons, aplicando filtro por nome e tipo.
+   * Utiliza cache local para otimizar requisições.
+   * @param limit Quantidade de pokémons por página
+   * @param offset Posição inicial
+   * @param nameFilter Filtro por nome (opcional)
+   */
   getPokemons(
     limit: number,
     offset: number,
@@ -95,6 +106,11 @@ export class PokemonService {
     return this.http.get<any>(`${this.baseUrl}/pokemon-species/${id}`);
   }
 
+  /**
+   * Busca detalhes completos de um Pokémon, combinando dados da PokéAPI e species.
+   * Utiliza forkJoin para requisições paralelas.
+   * @param id ID do Pokémon
+   */
   getPokemonDetails(id: number): Observable<Pokemon> {
     const pokemon$ = this.http.get<any>(`${this.baseUrl}/pokemon/${id}`);
     const species$ = this.getPokemonSpecies(id);

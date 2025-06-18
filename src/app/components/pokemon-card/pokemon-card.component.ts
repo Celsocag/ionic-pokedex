@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class PokemonCardComponent {
   @Input() pokemon!: Pokemon;
   @Input() isFavorite: boolean = false;
+  @Input() skeleton: boolean = false;
 
   @Output() toggleFavorite = new EventEmitter<Pokemon>();
   @Output() openDetails = new EventEmitter<Pokemon>();

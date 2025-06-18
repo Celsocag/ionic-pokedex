@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+/**
+ * Serviço para gerenciar o filtro de tipo de Pokémon aplicado na listagem.
+ * Utiliza BehaviorSubject para reatividade.
+ */
 @Injectable({
   providedIn: 'root',
 })

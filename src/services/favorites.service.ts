@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject } from 'rxjs';
 
+/**
+ * Serviço para gerenciar a lista de Pokémons favoritos do usuário.
+ * Utiliza storage local e BehaviorSubject para reatividade.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +28,11 @@ export class FavoritesService {
     return this.favoritesSubject.value;
   }
 
+  /**
+   * Adiciona ou remove um Pokémon da lista de favoritos.
+   * Atualiza o storage e o BehaviorSubject.
+   * @param id ID do Pokémon
+   */
   async toggleFavorite(id: number) {
     let favorites = this.favoritesSubject.value;
     if (favorites.includes(id)) {

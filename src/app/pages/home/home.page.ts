@@ -11,6 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { PokemonFilterMenuComponent } from 'src/app/components/pokemon-filter-menu/pokemon-filter-menu.component';
 import { FilterService } from '../../../services/filter.service';
 
+/**
+ * Página inicial da Pokédex.
+ * Exibe a lista de Pokémons, permite filtrar por tipo, favoritar e navegar para detalhes.
+ */
 @Component({
   standalone: true,
   selector: 'app-home',
@@ -41,6 +45,8 @@ export class HomePage implements OnInit, OnDestroy {
   showRotateBanner = false;
 
   private readonly STORAGE_KEY_BANNER_SHOWN = 'rotateBannerShown';
+
+  skeletons = Array(8);
 
   private onResize = () => {
     this.checkOrientation();
@@ -86,6 +92,10 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Exibe um banner sugerindo girar o dispositivo caso esteja em modo retrato.
+   * O banner só aparece uma vez por sessão.
+   */
   private checkOrientation() {
     const isPortrait = window.innerHeight > window.innerWidth;
     const bannerAlreadyShown = localStorage.getItem(this.STORAGE_KEY_BANNER_SHOWN) === 'true';

@@ -14,6 +14,10 @@ import { Subscription } from 'rxjs';
 import 'swiper/element/bundle';
 import type { SwiperContainer } from 'swiper/element';
 
+/**
+ * Página de detalhes de um Pokémon.
+ * Mostra imagens, tipos, habilidades, descrição, habitat, geração e permite favoritar.
+ */
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
