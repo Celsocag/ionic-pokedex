@@ -4,72 +4,63 @@ Uma Pokédex responsiva desenvolvida com Ionic + Angular, consumindo a PokéAPI 
 
 ---
 
-##  Funcionalidades
+## Funcionalidades
 
 - **Listagem de Pokémons** com infinite scroll
 
-  ![Home Mobile](src/assets/readme/home_mobile.png)
-
-  ![Home Desktop](src/assets/readme/home_desk.png)
-
+<div align="center">
+  <img src="src/assets/readme/home_mobile.png" width="200" alt="Home Mobile" />
+  <img src="src/assets/readme/home_desk.png" width="400" alt="Home Desktop" />
+</div>
 
 - **Filtro por tipo** de Pokémon
 
-  ![Filtro Demo](src/assets/readme/filtro_desk_demo.gif)
-
+<div align="center">
+  <img src="src/assets/readme/filtro_desk_demo.gif" width="600" alt="Filtro por Tipo" />
+</div>
 
 - **Favoritos salvos localmente**
 
-  ![Favoritos Mobile](src/assets/readme/favoritos_mobile.png)
+<div align="center">
+  <img src="src/assets/readme/favoritos_mobile.png" width="200" alt="Favoritos Mobile" />
+  <img src="src/assets/readme/favoritos_desk.png" width="400" alt="Favoritos Desktop" />
+</div>
 
-  ![Favoritos Desktop](src/assets/readme/favoritos_desk.png)
-
-  ![Favoritos Demo Mobile](src/assets/readme/favoritos_mobile_demo.gif.gif)
-
+<div align="center">
+  <img src="src/assets/readme/favoritos_mobile_demo.gif.gif" width="300" alt="Favoritos Demo Mobile" />
+</div>
 
 - **Detalhes completos** de cada Pokémon (imagens, tipos, habilidades, descrição, habitat e geração)
 
-  ![Detalhes Desktop](src/assets/readme/detalhes_desktop.gif)
+<div align="center">
+  <img src="src/assets/readme/detalhes_desktop.gif" width="600" alt="Detalhes Pokémon" />
+</div>
 
-
-- **Responsivo** para mobile e desktop
-
-- **Acessibilidade:** alt em imagens, aria-label, contraste, navegação por teclado
-
-- **Performance:** lazy loading de imagens, trackBy em listas principais, preconnect para APIs
-
+- **Responsivo** para mobile e desktop  
+- **Acessibilidade:** alt em imagens, aria-label, contraste, navegação por teclado  
+- **Performance:** lazy loading de imagens, trackBy em listas principais, preconnect para APIs  
 - **UX Mobile:** alerta visual para rotação de tela
 
-  ![Alerta de Rotação](src/assets/readme/mobile_rotate_warning.gif)
-
-
+<div align="center">
+  <img src="src/assets/readme/mobile_rotate_warning.gif" width="300" alt="Alerta de Rotação" />
+</div>
 
 ---
 
-##  Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **[Ionic Framework](https://ionicframework.com/):** UI responsiva e componentes mobile/desktop (`@ionic/angular`)
+- **[Angular](https://angular.io/):** SPA, DI, roteamento (`@angular/core`, `@angular/forms`, etc.)
+- **[Capacitor](https://capacitorjs.com/):** Integração nativa para Android/iOS
+- **[Ionic Storage](https://ionicframework.com/docs/angular/storage):** Persistência local
+- **[RxJS](https://rxjs.dev/):** Programação reativa
+- **[Swiper](https://swiperjs.com/):** Carrossel nos detalhes
+- **[TypeScript](https://www.typescriptlang.org/):** Tipagem estática
+- **[Jasmine](https://jasmine.github.io/) & [Karma](https://karma-runner.github.io/):** Testes unitários
+- **[ESLint](https://eslint.org/):** Linting (`@angular-eslint`, `@typescript-eslint`)
+- **[PokéAPI](https://pokeapi.co/):** Fonte de dados oficial
 
-- **[Angular](https://angular.io/):** Framework SPA, estruturação, DI, roteamento (`@angular/core`, `@angular/common`, `@angular/forms`, `@angular/router`)
-
-- **[Capacitor](https://capacitorjs.com/):** Integração nativa para Android/iOS (`@capacitor/core`, `@capacitor/app`, `@capacitor/haptics`, `@capacitor/keyboard`, `@capacitor/status-bar`)
-
-- **[Ionic Storage](https://ionicframework.com/docs/angular/storage):** Persistência local de dados (`@ionic/storage-angular`)
-
-- **[RxJS](https://rxjs.dev/):** Programação reativa (Observables)
-
-- **[Swiper](https://swiperjs.com/):** Carrossel de imagens nos detalhes dos Pokémons
-
-- **[TypeScript](https://www.typescriptlang.org/):** Tipagem estática e segurança
-
-- **[Jasmine](https://jasmine.github.io/) & [Karma](https://karma-runner.github.io/):** Testes unitários automatizados
-
-- **[ESLint](https://eslint.org/):** Linting e qualidade de código (`@angular-eslint`, `@typescript-eslint`)
-
-- **[PokéAPI](https://pokeapi.co/):** Fonte oficial de dados dos Pokémons
-
-
-
+---
 ---
 
 ##  Instalação
