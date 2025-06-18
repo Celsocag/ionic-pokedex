@@ -4,40 +4,43 @@ Uma Pokédex responsiva desenvolvida com Ionic + Angular, consumindo a PokéAPI 
 
 ---
 
-## 🚀 Funcionalidades
+##  Funcionalidades
 
-- Lista de Pokémons com infinite scroll
-  
+- **Listagem de Pokémons** com infinite scroll
   ![Home Mobile](src/assets/readme/home_mobile.png)
-
   ![Home Desktop](src/assets/readme/home_desk.png)
-
-  
-- Filtro por tipo
-  
+- **Filtro por tipo** de Pokémon
   ![Filtro Demo](src/assets/readme/filtro_desk_demo.gif)
-
-  
-- Favoritos salvos localmente
-  
+- **Favoritos salvos localmente**
   ![Favoritos Mobile](src/assets/readme/favoritos_mobile.png)
-  
   ![Favoritos Desktop](src/assets/readme/favoritos_desk.png)
-
-  
-- Detalhes completos de cada Pokémon
-  
+  ![Favoritos Demo Mobile](src/assets/readme/favoritos_mobile_demo.gif.gif)
+- **Detalhes completos** de cada Pokémon (imagens, tipos, habilidades, descrição, habitat e geração)
   ![Detalhes Desktop](src/assets/readme/detalhes_desktop.gif)
-
-  
-- Responsivo para mobile e desktop
-  
-- Boas práticas de acessibilidade e performance
-
+- **Responsivo** para mobile e desktop
+- **Acessibilidade:** alt em imagens, aria-label, contraste, navegação por teclado
+- **Performance:** lazy loading de imagens, trackBy em listas principais, preconnect para APIs
+- **UX Mobile:** alerta visual para rotação de tela
+  ![Alerta de Rotação](src/assets/readme/mobile_rotate_warning.gif)
 
 ---
 
-## 📦 Instalação
+##  Tecnologias Utilizadas
+
+- **[Ionic Framework](https://ionicframework.com/):** UI responsiva e componentes mobile/desktop (`@ionic/angular`)
+- **[Angular](https://angular.io/):** Framework SPA, estruturação, DI, roteamento (`@angular/core`, `@angular/common`, `@angular/forms`, `@angular/router`)
+- **[Capacitor](https://capacitorjs.com/):** Integração nativa para Android/iOS (`@capacitor/core`, `@capacitor/app`, `@capacitor/haptics`, `@capacitor/keyboard`, `@capacitor/status-bar`)
+- **[Ionic Storage](https://ionicframework.com/docs/angular/storage):** Persistência local de dados (`@ionic/storage-angular`)
+- **[RxJS](https://rxjs.dev/):** Programação reativa (Observables)
+- **[Swiper](https://swiperjs.com/):** Carrossel de imagens nos detalhes dos Pokémons
+- **[TypeScript](https://www.typescriptlang.org/):** Tipagem estática e segurança
+- **[Jasmine](https://jasmine.github.io/) & [Karma](https://karma-runner.github.io/):** Testes unitários automatizados
+- **[ESLint](https://eslint.org/):** Linting e qualidade de código (`@angular-eslint`, `@typescript-eslint`)
+- **[PokéAPI](https://pokeapi.co/):** Fonte oficial de dados dos Pokémons
+
+---
+
+##  Instalação
 
 1. Clone o repositório:
    ```sh
@@ -51,7 +54,7 @@ Uma Pokédex responsiva desenvolvida com Ionic + Angular, consumindo a PokéAPI 
 
 ---
 
-## ▶️ Como rodar
+##  Como rodar
 
 ```sh
 ionic serve
@@ -60,7 +63,7 @@ Acesse [http://localhost:8100](http://localhost:8100) no navegador.
 
 ---
 
-## 🧪 Testes
+##  Testes
 
 Execute os testes unitários:
 ```sh
@@ -69,7 +72,7 @@ npm run test -- --watch=false --browsers=ChromeHeadless
 
 ---
 
-## 📁 Estrutura do Projeto
+##  Estrutura do Projeto
 
 ```
 src/
@@ -90,54 +93,28 @@ src/
 
 ---
 
-## 📝 Decisões Técnicas
+##  Decisões Técnicas
 
-- **Listagem:** Pokémons paginados, com carregamento infinito.
-  
-  ![Home Mobile](src/assets/readme/home_mobile.png)
-  
-  ![Home Desktop](src/assets/readme/home_desk.png)
 
-  
-- **Filtro:** Por tipo de Pokémon.
-  
-  ![Filtro Demo](src/assets/readme/filtro_desk_demo.gif)
+### Metodologias e Boas Práticas de Código
 
-  
-- **Favoritos:** Adicione/remova Pokémons favoritos (persistência local).
-  
-  ![Favoritos Mobile](src/assets/readme/favoritos_mobile.png)
+- **DRY:** Lógica reutilizável centralizada em services, sem duplicação visível.
+- **KISS:** Código simples, direto e fácil de entender.
+- **TypeScript Estrito:** O projeto está com `strict: true` no `tsconfig.json` e outras flags de segurança ativadas.
+- **Tipagem:** O modelo principal (`Pokemon`) é uma interface, garantindo tipagem forte e alinhamento com as melhores práticas TypeScript.
+- **Convenções Angular:** Nomenclatura e estrutura de arquivos seguem o padrão Angular.
+- **trackBy:** Utilizado em todas as listas relevantes para performance.
 
-  ![Favoritos Desktop](src/assets/readme/favoritos_desk.png)
-  
-  ![Favoritos Demo Mobile](src/assets/readme/favoritos_mobile_demo.gif.gif)
-
-  
-- **Detalhes:** Imagens, tipos, habilidades, descrição, habitat e geração.
-  
-  ![Detalhes Desktop](src/assets/readme/detalhes_desktop.gif)
-
-  
-- **Responsividade:** Layout adaptado para mobile e desktop.
-  
+### Performance e Acessibilidade
+- **Lazy Loading:** Páginas principais usam lazy loading via router modules.
+- **Carregamento Infinito:** Infinite scroll para evitar carregamento excessivo.
+- **Lazy Loading de Imagens:** Imagens carregadas sob demanda.
+- **Preconnect:** Otimização de requisições à PokéAPI.
 - **Acessibilidade:** Uso de alt, aria-label, contraste e navegação por teclado.
-  
-- **Performance:** Lazy loading de imagens, trackBy em listas, preconnect para APIs.
-
-**Diferencial de UX para mobile:**
-
-![Alerta de Rotação](src/assets/readme/mobile_rotate_warning.gif)
-
 
 
 ---
 
-## 🔗 API
-
-- [PokéAPI](https://pokeapi.co/): Fonte oficial de dados dos Pokémons.
-
----
-
-## 👨‍💻 Contribuição
+## Contribuição
 
 Pull requests são bem-vindos! Sinta-se à vontade para abrir issues ou sugerir melhorias.
