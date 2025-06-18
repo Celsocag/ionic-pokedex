@@ -13,7 +13,7 @@
     <swiper-container class="info-card ion-padding" #pokemonImagesSwiper slides-per-view="1" autoplay="true" loop="true"
       pagination="true" style="height: 250px; width: 100%;">
       <swiper-slide *ngFor="let img of images">
-        <img [src]="img" alt="Imagem do Pokémon" style="width: 100%; height: 100%; object-fit: contain;" />
+        <img [src]="img" alt="Imagem do Pokémon" style="width: 100%; height: 100%; object-fit: contain;" loading="lazy" />
       </swiper-slide>
     </swiper-container>
 

@@ -1,5 +1,3 @@
-
-
 <ion-split-pane contentId="main-content" when="sm">
  <ion-banner *ngIf="showRotateBanner" color="warning" mode="ios">
   <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
@@ -15,7 +13,7 @@
 
       <div class="grid-container">
         <app-pokemon-card
-          *ngFor="let pokemon of pokemons"
+          *ngFor="let pokemon of pokemons; trackBy: trackByPokemonId"
           [pokemon]="pokemon"
           [isFavorite]="isFavorite(pokemon)"
           (toggleFavorite)="toggleFavorite($event)"

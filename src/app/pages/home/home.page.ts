@@ -153,6 +153,10 @@ export class HomePage implements OnInit, OnDestroy {
     return this.favoriteIds.includes(+pokemon.id);
   }
 
+  trackByPokemonId(index: number, pokemon: Pokemon): number {
+    return pokemon.id;
+  }
+
   applyFilter(filter: string | null) {
     this.filterService.setFilter(filter);
   }
