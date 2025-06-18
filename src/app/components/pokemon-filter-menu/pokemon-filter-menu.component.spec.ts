@@ -9,8 +9,7 @@ describe('PokemonFilterMenuComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PokemonFilterMenuComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot(), PokemonFilterMenuComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PokemonFilterMenuComponent);

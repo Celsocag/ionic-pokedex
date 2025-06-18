@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,25 +6,23 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./header.component.scss'],
   standalone: false
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   menuOpen = false;
   dropdownTop = 0;
   dropdownLeft = 0;
 
-  @ViewChild('menuButton', { read: ElementRef }) menuButton!: ElementRef; // <-- aqui
+  @ViewChild('menuButton', { read: ElementRef }) menuButton!: ElementRef;
 
   constructor() { }
-
-  ngOnInit() {}
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
 
     if (this.menuOpen && this.menuButton) {
       const rect = this.menuButton.nativeElement.getBoundingClientRect();
-      this.dropdownTop = rect.bottom + window.scrollY; // posição vertical logo abaixo do botão
-      this.dropdownLeft = rect.left + window.scrollX;  // posição horizontal alinhada ao botão
+      this.dropdownTop = rect.bottom + window.scrollY;
+      this.dropdownLeft = rect.left + window.scrollX;
     }
   }
 
