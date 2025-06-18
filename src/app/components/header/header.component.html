@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start" #menuButton>
-      <ion-button (click)="toggleMenu()" [attr.aria-haspopup]="true" [attr.aria-expanded]="menuOpen">
+      <ion-button (click)="toggleMenu()" [attr.aria-haspopup]="true" [attr.aria-expanded]="menuOpen" aria-label="Abrir menu de navegação">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -9,8 +9,9 @@
     <ion-title>Meu App Pokémon</ion-title>
   </ion-toolbar>
 
-  <div class="dropdown-menu" *ngIf="menuOpen" [style.top.px]="dropdownTop" [style.left.px]="dropdownLeft">
-    <ion-item button routerLink="/favorites" (click)="closeMenu()">
+  <div *ngIf="menuOpen" class="dropdown-backdrop" (click)="closeMenu()"></div>
+  <div class="dropdown-menu animate-dropdown" *ngIf="menuOpen" [style.top.px]="dropdownTop" [style.left.px]="dropdownLeft" role="menu">
+    <ion-item button routerLink="/favorites" (click)="closeMenu()" role="menuitem">
       <ion-icon slot="start" name="heart"></ion-icon>
       Favoritos
     </ion-item>

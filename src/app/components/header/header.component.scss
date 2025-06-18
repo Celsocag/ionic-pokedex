@@ -6,6 +6,8 @@
   min-width: 150px;
   z-index: 1000;
   padding: 0;
+  max-width: 90vw;
+  box-sizing: border-box;
 }
 
 .dropdown-menu ion-item {
@@ -17,4 +19,20 @@
 
 .dropdown-menu ion-icon {
   color: var(--ion-color-danger);
+}
+
+.dropdown-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.animate-dropdown {
+  animation: fadeInDropdown 0.2s ease;
+}
+
+@keyframes fadeInDropdown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }

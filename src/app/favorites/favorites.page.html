@@ -22,9 +22,20 @@
     </div>
     </ng-container>
 
-    <ng-template #noFavorites>
-      <ion-text class="ion-padding">Nenhum Pokémon favoritado.</ion-text>
-    </ng-template>
+  <ng-template #noFavorites>
+    <div class="no-favorites-container" role="region" aria-label="Sem favoritos">
+      <ion-icon name="heart-outline" size="large" color="medium" aria-hidden="true"></ion-icon>
+
+      <ion-text color="medium">
+        <h3>Nenhum Pokémon favoritado.</h3>
+        <p>
+          <a routerLink="/" class="view-pokemons-link" aria-label="Ver Pokémons disponíveis">
+            Ver Pokémons
+          </a>
+        </p>
+      </ion-text>
+    </div>
+  </ng-template>
   </ng-container>
 
   <ng-template #loading>

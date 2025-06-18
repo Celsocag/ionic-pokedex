@@ -43,9 +43,8 @@
     </ng-container>
 
     <ng-template #loading>
-      <div class="loading-container">
-        <ion-spinner name="crescent"></ion-spinner>
-        <p>Carregando Pokémons...</p>
+      <div class="grid-container">
+        <app-pokemon-card *ngFor="let s of skeletons" [skeleton]="true"></app-pokemon-card>
       </div>
     </ng-template>
   </ion-content>

@@ -1,49 +1,70 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/" aria-label="Voltar para a lista de Pokémons"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ pokemon?.name | titlecase }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="!isLoading; else loading">
+<ion-content *ngIf="!isLoading; else loading" class="ion-padding">
   <div class="pokemon-details" *ngIf="pokemon">
 
-    <swiper-container class="info-card ion-padding" #pokemonImagesSwiper slides-per-view="1" autoplay="true" loop="true"
-      pagination="true" style="height: 250px; width: 100%;">
-      <swiper-slide *ngFor="let img of images">
-        <img [src]="img" alt="Imagem do Pokémon" style="width: 100%; height: 100%; object-fit: contain;" loading="lazy" />
+    <swiper-container
+      class="pokemon-images-swiper"
+      #pokemonImagesSwiper
+      slides-per-view="1"
+      autoplay="true"
+      loop="true"
+      pagination="true"
+      aria-label="Imagens do Pokémon {{ pokemon.name }}"
+    >
+      <swiper-slide *ngFor="let img of images" class="slide-content">
+        <img
+          [src]="img"
+          alt="Imagem do Pokémon {{ pokemon.name }}"
+          class="swiper-image"
+          loading="lazy"
+        />
       </swiper-slide>
     </swiper-container>
 
-    <div class="info-card ion-padding" style="background: var(--ion-color-light); border-radius: 12px;">
-      <h2>#{{ pokemon.id }} {{ pokemon.name | titlecase }}</h2>
-      <ion-button fill="clear" slot="end" (click)="toggleFavorite(pokemon); $event.stopPropagation()">
-        <ion-icon [name]="isFavorite(pokemon) ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
-      </ion-button>
-
-      <div class="info-section ion-margin-top">
-        <h3>Description</h3>
-        <p>{{ pokemon.description || 'No description available.' }}</p>
+    <div class="info-card">
+      <div class="header-row">
+        <h2>#{{ pokemon.id }} {{ pokemon.name | titlecase }}</h2>
+        <ion-button
+          fill="clear"
+          aria-label="Favoritar Pokémon"
+          (click)="toggleFavorite(pokemon); $event.stopPropagation()"
+        >
+          <ion-icon
+            [name]="isFavorite(pokemon) ? 'heart' : 'heart-outline'"
+            color="danger"
+          ></ion-icon>
+        </ion-button>
       </div>
 
-      <div class="info-section ion-margin-top">
-        <h3>Types</h3>
+      <div class="info-section">
+        <h3>Descrição</h3>
+        <p>{{ pokemon.description || 'Nenhuma descrição disponível.' }}</p>
+      </div>
+
+      <div class="info-section">
+        <h3>Tipos</h3>
         <ion-chip color="primary" *ngFor="let t of types">
           {{ t }}
         </ion-chip>
       </div>
 
-      <div class="info-section ion-margin-top">
-        <h3>Abilities</h3>
+      <div class="info-section">
+        <h3>Habilidades</h3>
         <ion-badge color="secondary" *ngFor="let a of abilities">
           {{ a }}
         </ion-badge>
       </div>
 
-      <div class="info-section ion-margin-top">
-        <h3>Stats</h3>
+      <div class="info-section">
+        <h3>Status</h3>
         <ion-list>
           <ion-item *ngFor="let s of stats">
             <ion-label>{{ s.name }}</ion-label>
@@ -52,19 +73,19 @@
         </ion-list>
       </div>
 
-      <div class="info-section ion-margin-top">
+      <div class="info-section">
         <h3>Habitat</h3>
-        <p>{{ pokemon.habitat ? (pokemon.habitat | titlecase) : 'Unknown' }}</p>
+        <p>{{ pokemon.habitat ? (pokemon.habitat | titlecase) : 'Desconhecido' }}</p>
       </div>
 
-      <div class="info-section ion-margin-top">
-        <h3>Generation</h3>
-        <p>{{ pokemon.generation ? (pokemon.generation | titlecase) : 'Unknown' }}</p>
+      <div class="info-section">
+        <h3>Geração</h3>
+        <p>{{ pokemon.generation ? (pokemon.generation | titlecase) : 'Desconhecida' }}</p>
       </div>
     </div>
   </div>
 </ion-content>
 
 <ng-template #loading>
-  <ion-spinner class="ion-padding"></ion-spinner>
+  <ion-spinner class="ion-padding" name="crescent" aria-label="Carregando detalhes do Pokémon"></ion-spinner>
 </ng-template>

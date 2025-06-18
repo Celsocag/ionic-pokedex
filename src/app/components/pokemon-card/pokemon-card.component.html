@@ -1,12 +1,35 @@
-<ion-card (click)="openDetails.emit(pokemon)" class="pokemon-card">
-  <ion-img [src]="pokemon.imageUrl" alt="{{ pokemon.name }}"></ion-img>
-  <ion-card-content>
-    <h2>{{ pokemon.name | titlecase }}</h2>
+<div
+  class="card-wrapper"
+  role="button"
+  tabindex="0"
+  *ngIf="pokemon"
+  [attr.aria-label]="'Ver detalhes de ' + pokemon.name"
+  (click)="!skeleton && openDetails.emit(pokemon)"
+>
+  <ion-card class="pokemon-card" [attr.aria-label]="'Ver detalhes de ' + pokemon.name">
+    <ng-container *ngIf="!skeleton; else skeletonTpl">
+      <ion-img [src]="pokemon.imageUrl" alt="{{ pokemon.name }}"></ion-img>
 
-    <ion-icon
-      [name]="isFavorite ? 'heart' : 'heart-outline'"
-      class="favorite-icon"
-      (click)="toggleFavorite.emit(pokemon); $event.stopPropagation()">
-    </ion-icon>
-  </ion-card-content>
-</ion-card>
+      <ion-card-content>
+        <div class="content-header">
+          <h2 title="{{ pokemon.name }}">{{ pokemon.name | titlecase }}</h2>
+          <ion-icon
+            [name]="isFavorite ? 'heart' : 'heart-outline'"
+            class="favorite-icon"
+            role="img"
+            aria-label="Favorito"
+            (click)="onToggleFavorite($event)"
+          >
+          </ion-icon>
+        </div>
+      </ion-card-content>
+    </ng-container>
+
+    <ng-template #skeletonTpl>
+      <div class="skeleton-img" aria-hidden="true"></div>
+      <ion-card-content>
+        <div class="skeleton-title" aria-hidden="true"></div>
+      </ion-card-content>
+    </ng-template>
+  </ion-card>
+</div>

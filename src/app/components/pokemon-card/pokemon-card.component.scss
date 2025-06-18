@@ -1,14 +1,12 @@
 .pokemon-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
   aspect-ratio: 1 / 1;
   padding: 8px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   background-color: var(--ion-color-light);
-  text-align: center;
   transition: transform 0.2s ease-in-out;
 
   &:hover {
@@ -18,28 +16,73 @@
   ion-img {
     width: 80%;
     height: auto;
+    margin: 0 auto;
     margin-top: 8px;
   }
 
   ion-card-content {
-    position: relative;
-    width: 100%;
+    padding: 8px 4px 4px;
+  }
+
+  .content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
   }
 
   h2 {
     font-size: 1rem;
-    margin: 8px 0 0;
+    margin: 0;
     color: var(--ion-color-dark);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
   }
 
-.favorite-icon {
-  position: absolute;
-  top: 0;
-  right: 8px;
-  font-size: 1.2rem;
-  color: var(--ion-color-danger);
-  z-index: 1;
-  cursor: pointer;
+  .favorite-icon {
+    font-size: 1.4rem;
+    color: var(--ion-color-danger);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
 }
+@media (max-width: 768px) {
+  .pokemon-card {
+    ion-img {
+      width: 60%;
+      margin-top: 4px;
+    }
 
+    ion-card-content {
+      h2 {
+        font-size: 0.85rem;
+        white-space: normal;
+      }
+    }
+  }
+}
+/* Skeleton styles */
+.skeleton-img {
+  width: 100%;
+  height: 120px;
+  background: #eee;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  animation: pulse 1.5s infinite;
+}
+.skeleton-title {
+  width: 60%;
+  height: 20px;
+  background: #eee;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
