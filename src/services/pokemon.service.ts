@@ -133,7 +133,7 @@
 // }
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, forkJoin } from 'rxjs';
 import { Pokemon } from '../models/pokemon.model';
 import { FilterService } from './filter.service';
 
@@ -183,7 +183,6 @@ export class PokemonService {
   ): Observable<{ pokemons: Pokemon[]; total: number }> {
     const typeFilter = this.filterService.currentFilter;
 
-    // Filtro por tipo
     if (typeFilter) {
       if (this.allPokemonsByTypeCache[typeFilter]) {
         return of(this.paginateAndFilter(this.allPokemonsByTypeCache[typeFilter], limit, offset, nameFilter));
@@ -202,7 +201,6 @@ export class PokemonService {
       }
     }
 
-    // Sem tipo: todos os pokémons
     return this.loadAllPokemons().pipe(
       map(pokemons => this.paginateAndFilter(pokemons, limit, offset, nameFilter))
     );
@@ -226,11 +224,18 @@ export class PokemonService {
     this.allPokemonsByTypeCache = {};
   }
 
+  getPokemonSpecies(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/pokemon-species/${id}`);
+  }
+
   getPokemonDetails(id: number): Observable<Pokemon> {
-    return this.http.get<any>(`${this.baseUrl}/pokemon/${id}`).pipe(
-      map(data => {
-        const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
-        const sprites = data.sprites || {};
+    const pokemon$ = this.http.get<any>(`${this.baseUrl}/pokemon/${id}`);
+    const species$ = this.getPokemonSpecies(id);
+
+    return forkJoin({ pokemon: pokemon$, species: species$ }).pipe(
+      map(({ pokemon, species }) => {
+        const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
+        const sprites = pokemon.sprites || {};
         const images = [
           sprites.front_default,
           sprites.back_default,
@@ -238,22 +243,30 @@ export class PokemonService {
           sprites.back_shiny,
         ].filter(Boolean);
 
-        return {
-          name: data.name,
-          url: `${this.baseUrl}/pokemon/${data.id}`,
-          id: data.id,
+        const flavorEntry = species.flavor_text_entries.find(
+          (entry: any) => entry.language.name === 'en'
+        );
+        const description = flavorEntry ? flavorEntry.flavor_text.replace(/\f/g, ' ') : 'No description available.';
+
+        const habitat = species.habitat ? species.habitat.name : 'Unknown';
+        const generation = species.generation ? species.generation.name.replace('-', ' ') : 'Unknown';
+
+        return new Pokemon(
+          pokemon.name,
+          `${this.baseUrl}/pokemon/${pokemon.id}`,
+          pokemon.id,
           imageUrl,
-          types: data.types.map((t: any) => t.type.name),
-          abilities: data.abilities.map((a: any) => a.ability.name),
-          stats: data.stats.map((s: any) => ({
+          pokemon.types.map((t: any) => t.type.name),
+          pokemon.abilities.map((a: any) => a.ability.name),
+          pokemon.stats.map((s: any) => ({
             name: s.stat.name,
             value: s.base_stat,
           })),
           images,
-          description: '',
-          habitat: 'Unknown',
-          generation: 'Unknown',
-        } as Pokemon;
+          description,
+          habitat,
+          generation
+        );
       })
     );
   }

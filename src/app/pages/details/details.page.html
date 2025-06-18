@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content *ngIf="!isLoading; else loading">
-  <div class="pokemon-details">
+  <div class="pokemon-details" *ngIf="pokemon">
 
     <swiper-container class="info-card ion-padding" #pokemonImagesSwiper slides-per-view="1" autoplay="true" loop="true"
       pagination="true" style="height: 250px; width: 100%;">
@@ -18,14 +18,14 @@
     </swiper-container>
 
     <div class="info-card ion-padding" style="background: var(--ion-color-light); border-radius: 12px;">
-      <h2>#{{ pokemon?.id }} {{ pokemon?.name | titlecase }}</h2>
+      <h2>#{{ pokemon.id }} {{ pokemon.name | titlecase }}</h2>
       <ion-button fill="clear" slot="end" (click)="toggleFavorite(pokemon); $event.stopPropagation()">
         <ion-icon [name]="isFavorite(pokemon) ? 'heart' : 'heart-outline'" color="danger"></ion-icon>
       </ion-button>
 
       <div class="info-section ion-margin-top">
         <h3>Description</h3>
-        <p>{{ pokemon?.description || 'No description available.' }}</p>
+        <p>{{ pokemon.description || 'No description available.' }}</p>
       </div>
 
       <div class="info-section ion-margin-top">
@@ -52,16 +52,14 @@
         </ion-list>
       </div>
 
-
-
       <div class="info-section ion-margin-top">
         <h3>Habitat</h3>
-        <p>{{ (pokemon?.habitat ? (pokemon.habitat | titlecase) : 'Unknown') }}</p>
+        <p>{{ pokemon.habitat ? (pokemon.habitat | titlecase) : 'Unknown' }}</p>
       </div>
 
       <div class="info-section ion-margin-top">
         <h3>Generation</h3>
-        <p>{{ (pokemon?.generation ? (pokemon.generation | titlecase) : 'Unknown') }}</p>
+        <p>{{ pokemon.generation ? (pokemon.generation | titlecase) : 'Unknown' }}</p>
       </div>
     </div>
   </div>
