@@ -37,7 +37,16 @@ export class PokemonService {
         results.map(item => {
           const id = this.extractIdFromUrl(item.url);
           const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-          return new Pokemon(item.name, item.url, id, imageUrl);
+          return {
+            name: item.name,
+            url: item.url,
+            id,
+            imageUrl,
+            types: [],
+            abilities: [],
+            stats: [],
+            images: []
+          };
         })
       ),
       map(pokemons => {
@@ -70,7 +79,16 @@ export class PokemonService {
             const pokemons = response.pokemon.map((p: any) => {
               const id = this.extractIdFromUrl(p.pokemon.url);
               const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-              return new Pokemon(p.pokemon.name, p.pokemon.url, id, imageUrl, [typeFilter]);
+              return {
+                name: p.pokemon.name,
+                url: p.pokemon.url,
+                id,
+                imageUrl,
+                types: [typeFilter],
+                abilities: [],
+                stats: [],
+                images: []
+              };
             });
             this.allPokemonsByTypeCache[typeFilter] = pokemons;
             return this.paginateAndFilter(pokemons, limit, offset, nameFilter);
@@ -134,14 +152,14 @@ export class PokemonService {
         const habitat = species.habitat ? species.habitat.name : 'Unknown';
         const generation = species.generation ? species.generation.name.replace('-', ' ') : 'Unknown';
 
-        return new Pokemon(
-          pokemon.name,
-          `${this.baseUrl}/pokemon/${pokemon.id}`,
-          pokemon.id,
+        return {
+          name: pokemon.name,
+          url: `${this.baseUrl}/pokemon/${pokemon.id}`,
+          id: pokemon.id,
           imageUrl,
-          pokemon.types.map((t: any) => t.type.name),
-          pokemon.abilities.map((a: any) => a.ability.name),
-          pokemon.stats.map((s: any) => ({
+          types: pokemon.types.map((t: any) => t.type.name),
+          abilities: pokemon.abilities.map((a: any) => a.ability.name),
+          stats: pokemon.stats.map((s: any) => ({
             name: s.stat.name,
             value: s.base_stat,
           })),
@@ -149,7 +167,7 @@ export class PokemonService {
           description,
           habitat,
           generation
-        );
+        };
       })
     );
   }

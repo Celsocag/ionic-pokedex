@@ -44,7 +44,7 @@
 
     <ng-template #loading>
       <div class="grid-container">
-        <app-pokemon-card *ngFor="let s of skeletons" [skeleton]="true"></app-pokemon-card>
+        <app-pokemon-card *ngFor="let s of skeletons; trackBy: trackBySkeleton" [skeleton]="true"></app-pokemon-card>
       </div>
     </ng-template>
   </ion-content>

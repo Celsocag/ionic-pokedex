@@ -167,6 +167,10 @@ export class HomePage implements OnInit, OnDestroy {
     return pokemon.id;
   }
 
+  trackBySkeleton(index: number, item: any): number {
+    return index;
+  }
+
   applyFilter(filter: string | null) {
     this.filterService.setFilter(filter);
   }

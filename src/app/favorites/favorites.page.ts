@@ -58,4 +58,8 @@ export class FavoritesPage implements OnInit, OnDestroy {
   openDetails(pokemon: Pokemon) {
     this.navCtrl.navigateForward(`/details/${pokemon.id}`);
   }
+
+  trackByPokemonId(index: number, pokemon: Pokemon): number {
+    return pokemon.id;
+  }
 }
