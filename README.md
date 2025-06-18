@@ -41,7 +41,7 @@ Uma Pokédex responsiva desenvolvida com Ionic + Angular, consumindo a PokéAPI 
 
 1. Clone o repositório:
    ```sh
-   git clone <url-do-repo>
+   git clone https://github.com/Celsocag/ionic-pokedex.git
    cd ionic-pokedex
    ```
 2. Instale as dependências:
